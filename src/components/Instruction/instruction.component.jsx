@@ -12,11 +12,26 @@ const Instruction = () => {
   })
 
   useEffect(() => {
+    console.log('running this one time...')
+  }, [])
+
+  useEffect(() => {
     const thisClass = classes.find(thisClass => thisClass.instructor === instructor)
+
     if(thisClass) {
       setMyClass(myClass => ({ ...myClass, instructor: thisClass.instructor, name: thisClass.name, level: thisClass.level }))
+    } else {
+      setMyClass(myClass => ({ ...myClass, instructor: '', name: '', level: '' }))
     }
   }, [instructor])
+
+  useEffect(() => {
+    if(myClass.level === 'intermediate') {
+      document.getElementById('class-details').classList.add('intermediate-class');
+    } else {
+      document.getElementById('class-details').classList.remove('intermediate-class')
+    }
+  }, [myClass.level])
 
   return (
     <div>
@@ -32,9 +47,11 @@ const Instruction = () => {
         }
       </select>
       <h4>My Class Details</h4>
-      <p>{myClass.instructor}</p>
-      <p>{myClass.name}</p>
-      <p>{myClass.level}</p>
+      <div id='class-details'>
+        <p>{myClass.instructor}</p>
+        <p>{myClass.name}</p>
+        <p>{myClass.level}</p>
+      </div>
     </div>
   )
 }
