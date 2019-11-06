@@ -1,4 +1,4 @@
-const classes = [
+const courses = [
   { id: 1, instructor: 'Bob Cobb', name: 'History', level: 'introduction' },
   { id: 2, instructor: 'Hal Hope', name: 'English', level: 'introduction' },
   { id: 3, instructor: 'Kal Kool', name: 'Biology', level: 'intermediate' },
@@ -7,4 +7,4 @@ const classes = [
   { id: 6, instructor: 'Mel Mope', name: 'Physics', level: 'advanced' }
 ]
 
-export default classes;
+export default courses;

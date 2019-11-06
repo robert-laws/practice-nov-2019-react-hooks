@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-import instructors from '../../data/instructors';
-import classes from '../../data/classes';
+// import instructors from '../../data/instructors';
+import courses from '../../data/courses';
 
 const Instruction = () => {
-  const [instructor, setInstructor] = useState('');
-  const [myClass, setMyClass] = useState({
-    instructor: '',
-    name: '',
-    level: ''
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [myCourse, setMyCourse] = useState({
+    courseInstructor: '',
+    courseName: '',
+    courseLevel: ''
   })
 
   useEffect(() => {
@@ -16,41 +16,51 @@ const Instruction = () => {
   }, [])
 
   useEffect(() => {
-    const thisClass = classes.find(thisClass => thisClass.instructor === instructor)
+    const thisCourse = courses.find(thisCourse => thisCourse.name === myCourse.courseName)
 
-    if(thisClass) {
-      setMyClass(myClass => ({ ...myClass, instructor: thisClass.instructor, name: thisClass.name, level: thisClass.level }))
+    if(thisCourse) {
+      setMyCourse(myCourse => ({ ...myCourse, courseInstructor: thisCourse.instructor, courseName: thisCourse.name, courseLevel: thisCourse.level }))
+      // setMyCourse({
+      //   courseInstructor: thisCourse.instructor,
+      //   courseName: thisCourse.name,
+      //   courseLevel: thisCourse.level
+      // })
     } else {
-      setMyClass(myClass => ({ ...myClass, instructor: '', name: '', level: '' }))
+      setMyCourse(myCourse => ({ ...myCourse, courseInstructor: '', courseName: '', courseLevel: '' }))
+      // setMyCourse({
+      //   courseInstructor: '',
+      //   courseName: '',
+      //   courseLevel: ''
+      // })
     }
-  }, [instructor])
+  }, [myCourse.courseName])
 
   useEffect(() => {
-    if(myClass.level === 'intermediate') {
+    if(myCourse.courseLevel === 'intermediate') {
       document.getElementById('class-details').classList.add('intermediate-class');
     } else {
       document.getElementById('class-details').classList.remove('intermediate-class')
     }
-  }, [myClass.level])
+  }, [myCourse.courseLevel])
 
   return (
     <div>
       <h2>Instruction</h2>
-      <p>Today's Instructor is: {instructor === '' ? 'none assigned' : instructor}</p>
+      <p>The Selected Course is: {myCourse.courseName === '' ? 'none chosen' : myCourse.courseName}</p>
       <hr />
-      <select name='instructor' id='instructor' value={instructor} onChange={e => setInstructor(e.target.value)}>
-        <option value=''>Select an Instructor</option>
+      <select name='courseName' id='courseName' value={myCourse.courseName} onChange={e => setMyCourse({...myCourse, [`${e.target.name}`]: e.target.value})}>
+        <option value=''>Select a Course</option>
         {
-          instructors.map(instructor => (
-            <option key={instructor.id} value={instructor.name}>{instructor.name}</option>
+          courses.map(course => (
+            <option key={course.id} value={course.name}>{course.name}</option>
           ))
         }
       </select>
       <h4>My Class Details</h4>
       <div id='class-details'>
-        <p>{myClass.instructor}</p>
-        <p>{myClass.name}</p>
-        <p>{myClass.level}</p>
+        <p>{myCourse.courseInstructor}</p>
+        <p>{myCourse.courseName}</p>
+        <p>{myCourse.courseLevel}</p>
       </div>
     </div>
   )
