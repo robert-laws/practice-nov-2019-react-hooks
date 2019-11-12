@@ -40,7 +40,7 @@ const News = ({ myNews }) => {
         <p>{firstName} {lastName}</p>
         <p>{data}</p>
         <hr />
-        <p>{info.length > 0 ? info.map(item => ( <p>{item.author}</p> )) : ''}</p>
+        <p>{info.length > 0 ? info.map((item, index) => ( <span className='newsSpan' key={index}>{item.author}</span> )) : ''}</p>
       </div>
       )}
     </UserConsumer>    
